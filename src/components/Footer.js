@@ -1,4 +1,4 @@
-import { Button, Center, Text, Spinner } from "@chakra-ui/react";
+import { Button, Center, Text, Spinner, HStack } from "@chakra-ui/react";
 import { useDataContext } from "../contexts/DataContext";
 import { useSocketContext } from "../contexts/SocketContext";
 
@@ -11,30 +11,33 @@ function Footer() {
   };
 
   return (
-    <Center h={"5vh"} w={"90vw"}>
-      {Data.inGameUser[myId] ? (
-        Data.inGameUserId.length === 2 ? (
-          Data.inGameUser[myId].clickable ? (
-            "Your Turn"
+    <>
+      <Center h={"5vh"} w={"90vw"}>
+        {Data.inGameUser[myId] ? (
+          Data.inGameUserId.length === 2 ? (
+            Data.inGameUser[myId].clickable ? (
+              "Your Turn"
+            ) : (
+              <>
+                <Text px={"2"}>Wait For Opponent Move</Text>
+                <Spinner size="xs" />
+              </>
+            )
           ) : (
             <>
-              <Text px={"2"}>Wait For Opponent Move</Text>
+              <Text px={"2"}>Waiting For Player</Text>
               <Spinner size="xs" />
             </>
           )
         ) : (
-          <>
-            <Text px={"2"}>Waiting For Player</Text>
-            <Spinner size="xs" />
-          </>
-        )
-      ) : (
-        <Text mx={"4"}>Specting</Text>
-      )}
-      <Button onClick={handleJoin} display={Data.inGameUserId.length !== 2 && !Data.inGameUser[myId] ? "static" : "none"}>
-        Join
-      </Button>
-    </Center>
+          <Text mx={"4"}>Specting</Text>
+        )}
+        <Button onClick={handleJoin} display={Data.inGameUserId.length !== 2 && !Data.inGameUser[myId] ? "static" : "none"}>
+          Join
+        </Button>
+      </Center>
+      <HStack w={"100%"}></HStack>
+    </>
   );
 }
 
